@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#ff7aa2" />
+  <title>Senin için • Fatih'ten</title>
+  <style>
+    :root{
+      --bg1:#ffdee9;
+      --bg2:#b5fffc;
+      --card: rgba(255,255,255,.14);
+      --stroke: rgba(255,255,255,.35);
+      --text:#1f2937;
+      --muted:#475569;
+      --accent:#ff4d6d;
+      --ring:#ffd1dc;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family: ui-rounded, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color:var(--text);
+      background: linear-gradient(135deg,var(--bg1),var(--bg2)) fixed;
+      overflow-x:hidden;
+    }
+    .wrap{min-height:100%; display:grid; place-items:center; padding:clamp(16px,4vw,32px)}
+    .app{width:min(860px, 100%); display:grid; gap:16px; position:relative}
+
+    .hero{
+      position:relative; overflow:hidden; border-radius:24px; padding:28px 22px; text-align:center;
+      background: radial-gradient(1200px 600px at 50% -10%, rgba(255,255,255,.5), transparent), var(--card);
+      border:1px solid var(--stroke);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 30px rgba(0,0,0,.08);
+    }
+    h1{margin:4px 0 8px; font-size: clamp(28px, 6vw, 44px); letter-spacing: .5px}
+    .lead{margin:0; font-size: clamp(14px, 3.6vw, 18px); color:var(--muted)}
+
+    .pill{
+      display:inline-flex; align-items:center; gap:8px; padding:8px 14px; border-radius:999px; background:rgba(255,255,255,.6); border:1px solid var(--stroke);
+      margin-bottom:10px; font-weight:600; color:#0f172a; backdrop-filter: blur(6px);
+    }
+
+    .grid{display:grid; gap:16px}
+    @media (min-width: 740px){ .grid{grid-template-columns: 1.1fr .9fr} }
+
+    .card{
+      background: var(--card);
+      border:1px solid var(--stroke);
+      border-radius: 20px;
+      padding: 16px; position:relative; overflow:hidden;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 24px rgba(0,0,0,.06);
+    }
+
+    .section-title{font-weight:800; letter-spacing:.3px; font-size: clamp(16px, 2.8vw, 20px); margin:4px 0 10px}
+    .muted{color:var(--muted)}
+
+    .row{display:flex; align-items:center; gap:12px; flex-wrap:wrap}
+
+    .badge{display:inline-flex; gap:8px; align-items:center; padding:8px 12px; border-radius:12px; background:rgba(255,255,255,.6); border:1px solid var(--stroke); font-weight:600}
+
+    .type{min-height: 54px; font-size: clamp(16px, 4vw, 22px); line-height:1.35; font-weight:700;}
+    .caret{display:inline-block; width:10px; border-left:3px solid var(--accent); margin-left:4px; animation: blink .9s steps(1,end) infinite}
+    @keyframes blink{50%{opacity:0}}
+
+    .btns{display:flex; gap:10px; flex-wrap:wrap; justify-content:center}
+    button{
+      appearance:none; border:1px solid var(--stroke); background:white; color:#0f172a; font-weight:700; border-radius:14px; padding:12px 16px; cursor:pointer; transition:.2s transform, .2s box-shadow;
+      box-shadow:0 6px 16px rgba(0,0,0,.07);
+    }
+    button:active{transform: translateY(1px)}
+
+    .goal{
+      font-size: clamp(14px, 3.4vw, 18px); font-weight:700; padding:12px 14px; border-radius:14px; background:rgba(255,255,255,.7); border:1px solid var(--stroke); display:flex; gap:10px; align-items:center
+    }
+    .goal em{font-style:normal; color:#0f172a}
+
+    .bg-heart{position:absolute; pointer-events:none; font-size:18px; opacity:.8; animation: floatUp var(--dur) ease-in forwards; left: var(--x); bottom:-20px; filter: drop-shadow(0 4px 10px rgba(0,0,0,.15))}
+    @keyframes floatUp{to{transform: translateY(-120vh) translateX(var(--dx)) rotate(20deg); opacity:0}}
+
+    .letter{display:none; margin-top:8px; line-height:1.6}
+    .letter.show{display:block}
+
+    .foot{opacity:.8; text-align:center; font-size:12px; margin-top:8px}
+
+    /* Flower animation */
+    .flower{
+      position:absolute; right:-60px; top:50%; transform:translateY(-50%);
+      font-size:48px; animation: sway 3s ease-in-out infinite alternate;
+    }
+    @keyframes sway {
+      from{ transform: translateY(-50%) rotate(-10deg); }
+      to{ transform: translateY(-50%) rotate(10deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <main class="app" aria-label="Sürpriz sayfası">
+
+      <header class="hero" role="banner">
+        <span class="pill" aria-label="imza">💌 Fatih'ten sana</span>
+        <h1>Senin için, <span aria-label="kalp">❤️</span></h1>
+        <p class="lead">Küçük bir sürpriz… Ekrana dokun; kalpler yağsın, sözler dans etsin.</p>
+        <div class="type" id="type"></div>
+        <div class="btns" style="margin-top:8px">
+          <button id="heartsBtn" aria-label="Kalp yağmuru başlat">Kalp Yağmuru</button>
+          <button id="letterBtn" aria-controls="letter" aria-expanded="false">Mektubu Aç</button>
+        </div>
+        
+        <section id="letter" class="letter" aria-live="polite">
+          <p>İlk mesajımıza <strong>31 Ağustos 2025 • 16:21</strong>'de başladık. O andan beri, her bildirimde kalbim bir kez daha sana koşuyor.</p>
+          <p>Ve şunu bil: <em>Uğruna öleceğim o kahverengi gözlerini</em> her hatırladığımda, içimdeki dünya yine pembeleşiyor. İyi ki varsın.</p>
+          <p>Bu hafta küçük bir hedef koyalım: <strong>tokayı alabilmek</strong> 🎀 — sonra da birlikte bir kahve, uzun bir yürüyüş…</p>
+          <p style="margin-top:8px">Sevgiyle,<br/>— <strong>Fatih</strong></p>
+        </section>
+      </header>
+
+      <div class="grid">
+        <section class="card" aria-labelledby="t1">
+          <h2 id="t1" class="section-title">Bizim Zaman Çizgimiz</h2>
+          <div class="row" style="margin-bottom:10px">
+            <span class="badge" title="İlk mesaj tarihimiz">📩 İlk mesaj: <strong style="margin-left:6px">31 Ağustos 2025 • 16:21</strong></span>
+            <span class="badge" id="daysBadge">⏳ O günden beri: <strong id="sinceDays">–</strong> gün</span>
+          </div>
+          <p class="muted">Her gün, öncekinden biraz daha güzel olsun diye…</p>
+          <div class="goal" style="margin-top:12px">
+            <span>🎯</span>
+            <div>
+              <div>Bu haftaki hedefimiz:</div>
+              <div><em>tokayı alabilmek</em> 🎀</div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div class="flower">🌸</div>
+
+      <footer class="foot">• sevgiyle tasarlandı •</footer>
+    </main>
+  </div>
+
+  <script>
+    const SIGNED_BY = "Fatih";
+
+    const lines = [
+      "İlk mesajımız: 31 Ağustos 2025 • 16:21",
+      "O günden beri, her bildirim küçük bir gülümseme demek…",
+      "Kahverengi gözlerini düşündüğümde, içimde kelebekler uçuyor.",
+      "Uğruna öleceğim o kahverengi gözlerini görünce kalbim hızlanıyor."
+    ];
+
+    const typeEl = document.getElementById('type');
+    let li = 0, ci = 0, typing = true;
+
+    function typeLoop(){
+      const current = lines[li];
+      typeEl.innerHTML = current.slice(0, ci) + '<span class="caret" aria-hidden="true"></span>';
+      if(typing){
+        if(ci < current.length){
+          ci++; setTimeout(typeLoop, 36);
+        } else { typing = false; setTimeout(typeLoop, 1200); }
+      } else {
+        if(ci > 0){
+          ci--; setTimeout(typeLoop, 16);
+        } else { typing = true; li = (li+1) % lines.length; setTimeout(typeLoop, 220); }
+      }
+    }
+    typeLoop();
+
+    const hero = document.querySelector('.hero');
+    function spawnHearts(count=42){
+      for(let i=0;i<count;i++){
+        const s = document.createElement('div');
+        s.className = 'bg-heart';
+        s.textContent = Math.random() < .5 ? '💖' : '💗';
+        s.style.setProperty('--x', Math.round(Math.random()*98)+1 + 'vw');
+        s.style.setProperty('--dx', (Math.random()*.6 - .3)*120 + 'px');
+        s.style.setProperty('--dur', (2.6 + Math.random()*2.4) + 's');
+        s.style.transform = `translateY(0)`;
+        document.body.appendChild(s);
+        setTimeout(()=> s.remove(), 5000);
+      }
+      if(navigator.vibrate){ try{ navigator.vibrate(10); }catch{}}
+    }
+    document.getElementById('heartsBtn').addEventListener('click', ()=> spawnHearts());
+    hero.addEventListener('click', (e)=>{
+      if(e.target.closest('button')) return;
+      spawnHearts(28);
+    });
+
+    const letterBtn = document.getElementById('letterBtn');
+    const letter = document.getElementById('letter');
+    letterBtn.addEventListener('click', ()=>{
+      const show = !letter.classList.contains('show');
+      letter.classList.toggle('show');
+      letterBtn.setAttribute('aria-expanded', String(show));
+      letterBtn.textContent = show ? 'Mektubu Kapat' : 'Mektubu Aç';
+      if(show) spawnHearts(12);
+    });
+
+    const firstMsg = new Date('2025-08-31T13:21:00Z');
+    function updateSince(){
+      const now = new Date();
+      const diff = now - firstMsg;
+      const days = Math.max(0, Math.floor(diff / (1000*60*60*24)));
+      document.getElementById('sinceDays').textContent = days.toString();
+    }
+    updateSince(); setInterval(updateSince, 60_000);
+
+    document.title = `Senin için • ${SIGNED_BY}`;
+  </script>
+</body>
+</html>
